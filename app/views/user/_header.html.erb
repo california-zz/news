@@ -1,0 +1,34 @@
+
+
+<div class="navbar"  >
+ <div class="navbar-inner">
+       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </a>
+ <a class="brand" href="">My Blog</a>
+  <ul class="nav">
+ <li <%= hover_menu(root_path) %>><a href="<%=  root_path%>">Home</a></li>
+ <% if session[:Session_User].nil? %>
+ <li <%= hover_menu(register_path) %>><a href="<%=  register_path%>">Register</a></li>
+ <li <%= hover_menu(login_path) %>><a href="<%=  login_path%>">Login</a></li>
+ <% else %>
+  <li <%= hover_menu(article_path) %>><a href="<%=  article_path%>">Article</a></li>
+   <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown">Hi, <%= session[:Session_User][:username] %> <b class="caret"></b></a>
+
+                        <ul class="dropdown-menu">
+                          <li><a href="<%= profile_path %>">Edit Info</a></li>
+                          <li><a href="<%= change_path %>">Change Password</a></li>
+                          <li><a href="<%= logout_path %>">Logout</a></li>
+                          <li class="divider"></li>
+                         
+                        </ul>
+                      </li>
+
+   
+ <% end %>
+</ul>
+</div>
+</div>

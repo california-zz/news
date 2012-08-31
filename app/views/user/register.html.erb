@@ -1,0 +1,70 @@
+<h1>Register</h1>
+<%= form_for @user, :url => register_path , :html => { :class => "form-horizontal", :id => "form-horizontal" } do |f| %>
+<% if @user.errors.any? %>
+	<div class="alert alert-block alert-error fade in">
+		
+		<h4 class="alert-heading">There were problems with the following fields:</h4>
+		<button type="button" class="close" data-toggle="button" data-dismiss="alert">×</button>
+		<ul>
+		<% @user.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+		</ul>
+	</div>
+  <% end %>
+	<% if !flash[:success].nil? %>
+	<div class="alert alert-success">
+	<button type="button" class="close" data-toggle="button" data-dismiss="alert">×</button>
+		<%= flash[:success]%></div>
+
+	<% end %>
+
+  <div <%= show_error(:username) %>>
+    <label class="control-label" for="inputEmail">Username <b style="color:red;">(*)</b></label>
+    <div class="controls">
+     <%= f.text_field :username,:placeholder =>"fill Username" %>
+    </div>
+
+  </div>
+  <div <%= show_error(:password) %>>
+    <label class="control-label" for="inputPassword">Password <b style="color:red;">(*)</b></label>
+    <div class="controls">
+     <%= f.password_field :password,:placeholder =>"fill Password" %>
+  </div>
+
+</div>
+  <div  <%= show_error(:password_confirmation) %>>
+    <label class="control-label" for="inputPassword">Password Confirm <b style="color:red;">(*)</b></label>
+    <div class="controls">
+    <%= f.password_field :password_confirmation,:placeholder =>"fill confirm password" %>
+  </div>
+</div>
+
+<div  <%= show_error(:fullname) %>>
+    <label class="control-label" for="inputPassword">Full Name <b style="color:red;">(*)</b></label>
+    <div class="controls">
+   	<%= f.text_field :fullname,:placeholder =>"fill Fullname" %>
+  </div>
+</div>
+
+<div  <%= show_error(:address) %>>
+    <label class="control-label" for="inputPassword">Address  </label>
+    <div class="controls">
+   	<%= f.text_field :address,:placeholder =>"fill Address" %>
+  </div>
+</div>
+  <%= f.hidden_field :note, :value => "/images/default.png" %>
+
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit "Update" ,:class=>"btn btn-primary"  %>
+    </div>
+  </div>
+
+<% end %>
+<script type="text/javascript">
+      $(document).ready(function() {
+        $(".alert").alert("alert alert-error");
+		 $('.btn').button('complete');
+      });
+</script>

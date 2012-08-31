@@ -1,0 +1,91 @@
+
+<h1>List Article</h1>
+<% if !flash[:success].nil? %>
+<div class="alert alert-success">
+  <button type="button" class="close" data-toggle="button" data-dismiss="alert">×</button>
+    <%= flash[:success] %></div>
+
+  <% end %>
+<table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>User Post</th>
+                  <th>title</th>  
+                  <th>Created date</th>
+                 
+                   <th>Action</th>
+
+                </tr>
+              </thead>
+              <tbody>
+              	<% i=0 %>
+                <% @post.each do |f| %>
+                <% i=i+1 %>
+                <tr>
+                  <td><%= i%></td>
+                  <td> <%= link_to(image_tag(f.user[:note], :height => '60', :width => '60',:atl => f.user[:username],:title=>f.user[:username]),"")  %></td>
+                  <td><a href="<%= detail_url(:id => f.id) %>"><%= f.title %></a></td>
+                  <td><%= f.created_at%></td>
+                  <% if can_delete?(f.user_id)  %>
+                  <td><a href="#myModal" onclick="ajax_edit_article('<%= edit_article_path(:id=> f.id) %>')" role="button" data-toggle="modal"><img src="/images/edit.png" width="30" height="30" ></a>/<%= link_to(image_tag("/images/editdelete.png", :height => '30', :width => '30',:atl => "delete",:title=>"delete",:onclick =>"if (confirm('Are you sure you want to delete')) {return true;}return false;"),delete_path(:id=>f.id))  %></td>
+                  <% end %>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+
+<div class="modal fade hide"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-header">
+ <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+ <h3 id="myModalLabel">Edit Article</h3>
+ </div>
+<div class="modal-body">
+
+<form id="form_edit_article" name="form_edit_article" id="form-horizontal" class="form-horizontal">
+  <div class='control-group'>
+    <label class="control-label span4" for="inputEmail">Title <b style="color:red;">(*)</b></label>
+    <div class="controls">
+     
+     <input type="text" class="span12" id="title" name="title">
+    </div>
+
+  
+</div>
+<div stype="clear:both;"></div> 
+<div class='control-group' >
+    <label class="control-label span4" for="inputPassword">Content  </label>
+    <div class="controls"> 
+    <textarea id="content" name="content" rows="7" cols="500" class="span12"></textarea> 
+  </div>
+</div>
+<input type ="hidden" name="art_id" id="art_id" value="">
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<button class="btn btn-primary" onclick="ajax_set_edit_article()">Save changes</button>
+</div>
+</div>
+
+<script type="text/javascript">
+  function ajax_edit_article(url)
+  {
+    $.post(url, function(data) {
+      $("#title").val(data.post.title);
+      $("#content").val(data.post.content);
+       $("#art_id").val(data.post.id);
+     $("#myModal").modal();
+    });
+  }
+
+  function ajax_set_edit_article()
+  {
+    $.post('<%= set_edit_article_path()%>',{"id": $("#art_id").val(),"title":$("#title").val(),"content":$("#content").val()}, function(data) {
+     alert(data);
+
+
+    });
+  }
+  
+</script>

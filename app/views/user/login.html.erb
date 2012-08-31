@@ -1,0 +1,33 @@
+<h1>Login</h1>
+<%= form_for :user, :url => login_path , :html => { :class => "form-horizontal", :id => "form-horizontal" } do |f| %>
+
+
+ <% if !flash[:error].nil? %>
+	<div class="alert alert-block alert-error fade in">
+		<%=  flash[:error] %>
+	</div>
+<% end %>
+<div class="control-group">
+<label class="control-label" for="inputEmail">User Name</label>
+<div class="controls">
+     <%= f.text_field :username,:placeholder =>"fill Username" %>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label" for="inputPassword">Password</label>
+<div class="controls">
+     <%= f.password_field :password,:placeholder =>"fill Password" %>
+</div>
+</div>
+
+<div class="control-group">
+  <div class="controls">
+   <label class="checkbox">
+   <input type="checkbox"> Remember me
+  </label>
+      <%= f.submit "Login" ,:class=>"btn btn-primary"  %>
+   </div>
+ </div>
+
+<% end %>

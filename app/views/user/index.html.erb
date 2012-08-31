@@ -1,0 +1,68 @@
+<h1>Edit Profile</h1>
+<%= form_for @user, :url => profile_path , :html => { :class => "form-horizontal", :id => "form-horizontal",:multipart => true } do |f| %>
+<% if @user.errors.any? %>
+  <div class="alert alert-block alert-error fade in">
+    
+    <h4 class="alert-heading">There were problems with the following fields:</h4>
+    <button type="button" class="close" data-toggle="button" data-dismiss="alert">×</button>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+  <% if  !flash[:success].nil? %>
+  <div class="alert alert-success">
+  <button type="button" class="close" data-toggle="button" data-dismiss="alert">×</button>
+    success</div>
+  <% end %>
+<div style="float:left;" >
+  <img width="300" height="300" src="<%= @user[:note] %>" class="img-polaroid">
+</div>
+<div style="float:left">
+  <div <%= show_error(:username) %>>
+    <label class="control-label" for="inputEmail">Username </label>
+    <div class="controls">
+     <%= @user[:username] %>
+    </div>
+
+  </div>
+
+<div  <%= show_error(:fullname) %>>
+    <label class="control-label" for="inputPassword">Full Name <b style="color:red;">(*)</b></label>
+    <div class="controls">
+    <%= f.text_field :fullname,:placeholder =>"fill Fullname" %>
+  </div>
+</div>
+
+<div  <%= show_error(:address) %>>
+    <label class="control-label" for="inputPassword">Address  </label>
+    <div class="controls">
+    <%= f.text_field :address,:placeholder =>"fill Address" %>
+  </div>
+</div>
+
+<div  <%= show_error(:note) %>>
+    <label class="control-label" for="inputPassword">Avatar  </label>
+    <div class="controls">
+    <%= f.file_field :note, :size =>100 %>
+  </div>
+</div>
+
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit "Update" ,:class=>"btn btn-primary"  %>
+    </div>
+  </div>
+</div>
+
+<% end %>
+
+<script type="text/javascript">
+      $(document).ready(function() {
+        $(".alert").alert("alert alert-error");
+   
+      });
+</script>
+

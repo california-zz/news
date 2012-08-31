@@ -1,0 +1,41 @@
+<div class="alert alert-block alert-success fade in">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <h4 class="alert-heading">Mention</h4>
+            <p><%= flash[:success] %></p>
+            <p>
+              <a class="btn btn-danger" href="<%= root_path %>">Back to Home</a> <a class="btn" href="<%= login_path %>">Or Login</a>
+            </p>
+
+          </div>
+<div class="alert fade in">
+            <strong>Redirect to home </strong> after  <span id="container" class="badge badge-important"></span>
+          </div>
+
+<script type="text/javascript">
+var time = 15; //How long (in seconds) to countdown
+var page = "<%= root_path %>"; //The page to redirect to
+function countDown(){
+time--;
+gett("container").innerHTML = time;
+if(time == -1){
+window.location = page;
+}
+}
+function gett(id){
+if(document.getElementById) return document.getElementById(id);
+if(document.all) return document.all.id;
+if(document.layers) return document.layers.id;
+if(window.opera) return window.opera.id;
+}
+function init(){
+if(gett('container')){
+setInterval(countDown, 1000);
+gett("container").innerHTML = time;
+}
+else{
+setTimeout(init, 50);
+}
+}
+document.onload = init();
+</SCRIPT>
+
