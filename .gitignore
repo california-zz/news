@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .bundle
 db/*.sqlite3*
 log/*.log
@@ -8,3 +9,23 @@ doc/
 *~
 .project
 .DS_Store
+=======
+*.gem
+*.rbc
+.bundle
+.config
+coverage
+InstalledFiles
+lib/bundler/man
+pkg
+rdoc
+spec/reports
+test/tmp
+test/version_tmp
+tmp
+
+# YARD artifacts
+.yardoc
+_yardoc
+doc/
+>>>>>>> 725e33d3c187241c4a30477289f20523feaed47d
